@@ -50,7 +50,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   let filteredImageString: Promise<string> = filterImageFromURL(fileName);
   filteredImageString.then(function(result){
     localfiles.push(result)
-    res.status(200).sendfile(result);
+    res.status(200).sendFile(result);
 
     //deleteLocalFiles(localfiles)
   }).catch(error=>{
