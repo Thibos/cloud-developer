@@ -33,6 +33,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   
   // Root Endpoint
   // Displays a simple message to the user
+  app.use(express.static('public'));
   app.get( "/", async ( req, res ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
@@ -49,14 +50,14 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   let filteredImageString: Promise<string> = filterImageFromURL(fileName);
   filteredImageString.then(function(result){
     localfiles.push(result)
-    res.status(200).send({url: result});
+    res.status(200).sendfile(result);
 
-    deleteLocalFiles(localfiles)
+    //deleteLocalFiles(localfiles)
   }).catch(error=>{
     res.status(422).send({result: "An Error Occured"});
   })
  
-  
+  deleteLocalFiles(localfiles)
 });
 
   // Start the Server
